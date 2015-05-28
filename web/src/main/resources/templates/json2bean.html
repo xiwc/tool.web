@@ -7,7 +7,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
     <base th:href="@{/}" href="" />
-    <title>I18N</title>
+    <title>Json2Bean</title>
     <link rel="stylesheet" th:href="@{/lib/semantic/semantic.css}" href="../static/lib/semantic/semantic.css" />
     <link rel="stylesheet" th:href="@{/css/custom.css}" href="../static/css/custom.css" />
     <script th:src="@{/lib/jquery-1.11.2.js}" src="../static/lib/jquery-1.11.2.js"></script>
@@ -24,31 +24,32 @@
     <div class="pusher">
         <div class="container">
             <div class="ui basic segment">
-                <h3 class="ui top attached header">I18n page</h3>
+                <h3 class="ui top attached header">Json2Bean page</h3>
                 <div class="ui bottom attached segment">
                     <form class="ui form">
                         <div class="inline field">
-                            <label>Namespace:</label>
-                            <input id="txtNs" th:value="${ns}" type="text" placeholder="namespace">
+                            <div class="ui toggle checkbox" id="chkCmmt">
+                                <input type="checkbox" name="cmmt" checked>
+                                <label>Add json value as comment</label>
+                            </div>
                         </div>
                         <div class="field">
-                            <label>Input:</label>
-                            <textarea id="txtInput" th:text="${input}"></textarea>
+                            <label>Json:</label>
+                            <textarea id="txtInput" th:text="${json}"></textarea>
                         </div>
                     </form>
                     <div class="ui segment">
-                        <div class="ui button" id="btnReplace">Replace</div>
+                        <div class="ui button" id="btnReplace">Convert</div>
                     </div>
                     <form class="ui form">
                         <div class="field">
-                            <label>Output:</label>
+                            <label>Log:</label>
                             <textarea id="txtOutput"></textarea>
                         </div>
-                        <div class="field">
-                            <label>Property:</label>
-                            <textarea id="txtProperty"></textarea>
-                        </div>
                     </form>
+                    <div class="ui segment">
+                        <span><b>下载转换源码:</b>&nbsp;&nbsp;&nbsp;&nbsp;</span><a target="_blank" id="dwnZip" href="#"></a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -57,14 +58,14 @@
     jQuery(document).ready(function($) {
 
         $('#btnReplace').click(function(event) {
-            $.post('i18n/replace', {
-                ns: $('#txtNs').val(),
-                input: $('#txtInput').val()
+            $.post('json2bean/convert', {
+                cmmt: $('#chkCmmt').checkbox('is checked'),
+                json: $('#txtInput').val()
             }, function(data, textStatus, xhr) {
                 if (data.success) {
-                    $('#txtOutput').val(data.data.xml);
-                    $('#txtProperty').val(data.data.props);
-                    $.ntf.info('替换成功!');
+                    $('#txtOutput').val(data.data.logs);
+                    $('#dwnZip').attr('href', data.data.zipUrl).text(data.data.zipUrl);
+                    $.ntf.info('转换成功!');
                 } else {
                     $('#txtOutput').val('');
                     $.ntf.error(data.data);

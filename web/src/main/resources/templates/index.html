@@ -7,7 +7,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
     <base th:href="@{/}" href="" />
-    <title>Index</title>
+    <title>Home</title>
     <link rel="stylesheet" th:href="@{/lib/semantic/semantic.css}" href="../static/lib/semantic/semantic.css" />
     <link rel="stylesheet" th:href="@{/css/custom.css}" href="../static/css/custom.css" />
     <script th:src="@{/lib/jquery-1.11.2.js}" src="../static/lib/jquery-1.11.2.js"></script>
@@ -18,19 +18,37 @@
 </head>
 
 <body>
-    <div th:fragment="sidebar" class="ui inverted left vertical sidebar menu">
-        <div class="item">
-        </div>
+    <div th:fragment="sidebar" class="ui left vertical inverted labeled icon sidebar menu">
+        <a class="item" th:href="@{/}" href="index.html">
+            <i class="home icon"></i> Home
+        </a>
+        <a class="item" th:href="@{/page/i18n}" href="i18n.html">
+            <i class="smile icon"></i> I18N
+        </a>
+        <a class="item" th:href="@{/page/json2bean}" href="json2bean.html">
+            <i class="smile icon"></i> Json2Bean
+        </a>
     </div>
     <div th:fragment="menu" class="ui inverted top fixed menu">
         <a class="item xwc-menu">
-            <i class="content icon"></i> 菜单
+            <i class="content icon"></i> Menu
         </a>
+        <a class="item" th:href="@{/}" href="index.html">Home</a>
         <a class="item" th:href="@{/page/i18n}" href="i18n.html">I18N</a>
+        <a class="item" th:href="@{/page/json2bean}" href="json2bean.html">Json2Bean</a>
         <div class="right menu">
         </div>
     </div>
-    <div class="pusher"></div>
+    <div class="pusher">
+        <div class="container">
+            <div class="ui basic segment">
+                <h3 class="ui top attached header">Home page</h3>
+                <div class="ui bottom attached segment">
+                    Instructions for use.
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

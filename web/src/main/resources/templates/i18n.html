@@ -29,11 +29,11 @@
                     <form class="ui form">
                         <div class="inline field">
                             <label>Namespace:</label>
-                            <input id="txtNs" type="text" placeholder="namespace">
+                            <input id="txtNs" th:value="${ns}" type="text" placeholder="namespace">
                         </div>
                         <div class="field">
                             <label>Input:</label>
-                            <textarea id="txtInput"></textarea>
+                            <textarea id="txtInput" th:text="${input}"></textarea>
                         </div>
                     </form>
                     <div class="ui segment">
